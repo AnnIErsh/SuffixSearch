@@ -12,11 +12,10 @@ struct SortScreen: View {
     @Binding var currentHead: Modes
 
     var suffixes:[Suffix] {
-        let process = SortingProcess()
-        let type = process.show(type: currentHead, words: textViewModel.suffixes)
-        return type.names
+        let words = textViewModel.setOrderSuffix(currentHead: currentHead)
+        return words
     }
-        
+            
     var body: some View {
         table
             .onDisappear {
@@ -44,25 +43,56 @@ struct SortScreen: View {
     private var listToShow: AnyView {
         switch currentHead {
         case .norm:
-            return AnyView(List {
-                ForEach(textViewModel.words.indices, id: \.self) { i in
-                    let arr = Array(textViewModel.words[i])
-                    let n = textViewModel.indexes[i]
-                    Section {
-                        ForEach(arr.indices, id: \.self) { j in
-                            Text(String((suffixes[n + j] as AnyObject).description))
-                        }
-                    } header: {
-                        Text(textViewModel.words[i])
-                    }
-                }
-            })
+            return normalView
+        case .unique:
+            return uniquesView
         case .asc, .des:
-            return AnyView(List {
-                ForEach(suffixes.indices, id: \.self) { i in
-                    Text(String((suffixes[i] as AnyObject).description))
-                }
-            })
+            return sortView
         }
+    }
+    
+    private var normalView: AnyView {
+        AnyView(List {
+            ForEach(textViewModel.words.indices, id: \.self) { i in
+                let arr = Array(textViewModel.words[i])
+                let n = textViewModel.indexes[i]
+                Section {
+                    ForEach(arr.indices, id: \.self) { j in
+                        Text(String((suffixes[n + j] as AnyObject).description))
+                    }
+                } header: {
+                    Text(textViewModel.words[i])
+                }
+            }
+        })
+    }
+    
+    private var uniquesView: AnyView {
+        AnyView(List {
+            let uniques = Array(textViewModel.uniques)
+            ForEach(uniques.indices, id: \.self) { i in
+                HStack {
+                    Text(String((uniques[i] as AnyObject).description))
+                    let numb = textViewModel.uniques.count(for: uniques[i])
+                    Spacer()
+                    Text("\(Int.showNumber(n: numb))")
+                }
+            }
+        })
+    }
+    
+    private var sortView: AnyView {
+        let countedArr = Array(textViewModel.uniques)
+        let orderedArr = Array(NSOrderedSet(array: suffixes))
+        return AnyView(List {
+            ForEach(orderedArr.indices, id: \.self) { i in
+                HStack {
+                    Text(String((orderedArr[i] as AnyObject).description))
+                    let numb = textViewModel.uniques.count(for: countedArr[i])
+                    Spacer()
+                    Text("\(Int.showNumber(n: numb))")
+                }
+            }
+        })
     }
 }

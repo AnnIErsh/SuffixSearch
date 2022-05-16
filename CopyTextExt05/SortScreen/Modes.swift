@@ -9,6 +9,7 @@ import Foundation
 
 enum Modes: String, CaseIterable {
     case norm = "default"
+    case unique = "unique"
     case asc = "ASC"
     case des = "DESC"
 }

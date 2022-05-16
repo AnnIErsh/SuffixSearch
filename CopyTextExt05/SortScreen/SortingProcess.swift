@@ -19,7 +19,7 @@ protocol ISortType {
 class SortingProcess: ISortType {
     func show(type: Modes, words: [Suffix]) -> SortType {
         switch type {
-        case .norm:
+        case .norm, .unique:
             return SortType(names: words)
         case .asc:
             return SortType(names: words.sorted(by: <))

@@ -9,5 +9,5 @@ import Foundation
 
 struct SuffixModel {
     var string: String
-    var count: Int
 }
+

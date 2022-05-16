@@ -22,6 +22,30 @@ final class TextViewModel: ObservableObject {
     var indexes: [Int] = [0]
     var sequences: [SuffixSequence] = []
     var suffixes: [Suffix] = []
+    
+    var uniques: NSCountedSet {
+        NSCountedSet(array: suffixes)
+    }
+    
+//    var uniqueSuffixes: [Suffix: Int] {
+//        var dict: [Suffix: Int] = [:]
+//        _ = suffixes.map {
+//            if let value: Int = dict[$0]  {
+//                dict[$0] = value + 1
+//            } else {
+//                dict[$0] = 1
+//            }
+//        }
+//        return dict
+//    }
+//    
+//    var keys: [Suffix] {
+//        return Array(uniqueSuffixes.keys)
+//    }
+//    
+//    var values: [Int] {
+//        Array(uniqueSuffixes.values)
+//    }
 
     func fillArrayWithSequence() {
         for i in words {
@@ -45,6 +69,15 @@ final class TextViewModel: ObservableObject {
         }
     }
     
+    func setOrderSuffix(currentHead: Modes) -> [Suffix] {
+        var suff: [Suffix] {
+            let process = SortingProcess()
+            let type = process.show(type: currentHead, words: suffixes)
+            return type.names
+        }
+        return suff
+    }
+        
     func resetData() {
         words = []
         sequences = []

@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ISuffix: CustomStringConvertible, Comparable { }
+protocol ISuffix: CustomStringConvertible, Comparable, Hashable { }
 
 struct Suffix: ISuffix {
     let name: String

@@ -16,7 +16,6 @@ struct TextScreen: View {
             print("is editing \(edit)")
         } onCommit: {
             textViewModel.words = text.components(separatedBy: " ")
-            textViewModel.words.removeLast()
             textViewModel.fillArrayWithSequence()
             textViewModel.fillArrayWithSuffixes()
         }
