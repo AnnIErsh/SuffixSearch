@@ -10,6 +10,7 @@ import Foundation
 final class TextViewModel: ObservableObject {
     @Published var words: [String] = []
     @Published var head: Modes = .norm
+    @Published var tops: [Suffix] = []
     var mode: Modes {
         get {
             head
@@ -26,26 +27,6 @@ final class TextViewModel: ObservableObject {
     var uniques: NSCountedSet {
         NSCountedSet(array: suffixes)
     }
-    
-//    var uniqueSuffixes: [Suffix: Int] {
-//        var dict: [Suffix: Int] = [:]
-//        _ = suffixes.map {
-//            if let value: Int = dict[$0]  {
-//                dict[$0] = value + 1
-//            } else {
-//                dict[$0] = 1
-//            }
-//        }
-//        return dict
-//    }
-//    
-//    var keys: [Suffix] {
-//        return Array(uniqueSuffixes.keys)
-//    }
-//    
-//    var values: [Int] {
-//        Array(uniqueSuffixes.values)
-//    }
 
     func fillArrayWithSequence() {
         for i in words {
@@ -61,9 +42,10 @@ final class TextViewModel: ObservableObject {
             suffixes.append(Suffix(name: words[j]))
             n += words[j].count
             indexes.append(n)
-            for j in i {
-                let ss = j as! String
-                suffixes.append(Suffix(name: ss))
+            let suffSeq = i.suffix(n)
+            let suffArr = suffSeq as! [String]
+            for el in suffArr {
+                suffixes.append(Suffix(name: el))
             }
             j += 1
         }
@@ -77,10 +59,24 @@ final class TextViewModel: ObservableObject {
         }
         return suff
     }
-        
+    
+    func showTopTen() {
+        let arr = Array(uniques) as! [Suffix]
+        tops = arr.filter { i in
+            i.name.count == 3
+        }
+        tops.sort { i, j in
+            let numb = uniques.count(for: i)
+            let numb2 = uniques.count(for: j)
+            return numb > numb2
+        }
+        print(tops)
+    }
+    
     func resetData() {
         words = []
         sequences = []
         suffixes = []
+        tops = []
     }
 }

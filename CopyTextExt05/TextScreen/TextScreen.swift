@@ -18,6 +18,7 @@ struct TextScreen: View {
             textViewModel.words = text.components(separatedBy: " ")
             textViewModel.fillArrayWithSequence()
             textViewModel.fillArrayWithSuffixes()
+            textViewModel.showTopTen()
         }
         .textFieldStyle(RoundedBorderTextFieldStyle())
     }

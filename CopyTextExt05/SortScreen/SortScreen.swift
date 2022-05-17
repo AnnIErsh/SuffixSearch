@@ -68,12 +68,21 @@ struct SortScreen: View {
     }
     
     private var uniquesView: AnyView {
-        AnyView(List {
-            let uniques = Array(textViewModel.uniques)
-            ForEach(uniques.indices, id: \.self) { i in
+        return AnyView(
+            VStack {
+                randoms
+                tops
+            }
+        )
+    }
+    
+    private var sortView: AnyView {
+        let orderedArr = Array(NSOrderedSet(array: suffixes))
+        return AnyView(List {
+            ForEach(orderedArr.indices, id: \.self) { i in
                 HStack {
-                    Text(String((uniques[i] as AnyObject).description))
-                    let numb = textViewModel.uniques.count(for: uniques[i])
+                    Text(String((orderedArr[i] as AnyObject).description))
+                    let numb = textViewModel.uniques.count(for: orderedArr[i])
                     Spacer()
                     Text("\(Int.showNumber(n: numb))")
                 }
@@ -81,18 +90,35 @@ struct SortScreen: View {
         })
     }
     
-    private var sortView: AnyView {
-        let countedArr = Array(textViewModel.uniques)
-        let orderedArr = Array(NSOrderedSet(array: suffixes))
-        return AnyView(List {
-            ForEach(orderedArr.indices, id: \.self) { i in
-                HStack {
-                    Text(String((orderedArr[i] as AnyObject).description))
-                    let numb = textViewModel.uniques.count(for: countedArr[i])
-                    Spacer()
-                    Text("\(Int.showNumber(n: numb))")
+    private var randoms: AnyView {
+        return AnyView(
+            List {
+                let uniques = Array(textViewModel.uniques)
+                ForEach(uniques.indices, id: \.self) { i in
+                    HStack {
+                        Text(String((uniques[i] as AnyObject).description))
+                        let numb = textViewModel.uniques.count(for: uniques[i])
+                        Spacer()
+                        Text("\(Int.showNumber(n: numb))")
+                    }
                 }
             }
-        })
+        )
+    }
+    
+    private var tops: AnyView {
+        return AnyView(
+            List {
+                let uniques = Array(textViewModel.uniques)
+                ForEach(uniques.indices, id: \.self) { i in
+                    HStack {
+                        Text(String((uniques[i] as AnyObject).description))
+                        let numb = textViewModel.uniques.count(for: uniques[i])
+                        Spacer()
+                        Text("\(Int.showNumber(n: numb))")
+                    }
+                }
+            }
+        )
     }
 }
