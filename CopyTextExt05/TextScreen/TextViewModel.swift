@@ -11,6 +11,7 @@ final class TextViewModel: ObservableObject {
     @Published var words: [String] = []
     @Published var head: Modes = .norm
     @Published var tops: [Suffix] = []
+   
     var mode: Modes {
         get {
             head
@@ -36,16 +37,27 @@ final class TextViewModel: ObservableObject {
     var sequences: [SuffixSequence] = []
     var suffixes: [Suffix] = []
     
+    var suffmodes: [Suffix] {
+        let process = SortingProcess()
+        let type = process.show(type: head, words: suffixes)
+        return type.names
+    }
+    
     var uniques: NSCountedSet {
         NSCountedSet(array: suffixes)
     }
     
     var topOrNorm: [Any] {
-        if mode == .norm { return Array(uniques) }
-        if mode == .tops { return Array(tops) }
-        return []
+        switch mode {
+        case .norm:
+            return Array(uniques)
+        case .tops:
+            return Array(tops)
+        case .asc, .des:
+            return Array(NSOrderedSet(array: suffmodes))
+        }
     }
-
+    
     func fillArrayWithSequence() {
         for i in words {
             sequences.append(SuffixSequence(word: i))
@@ -68,16 +80,7 @@ final class TextViewModel: ObservableObject {
             j += 1
         }
     }
-    
-    func setOrderSuffix(currentHead: Modes) -> [Suffix] {
-        var suff: [Suffix] {
-            let process = SortingProcess()
-            let type = process.show(type: currentHead, words: suffixes)
-            return type.names
-        }
-        return suff
-    }
-    
+        
     func showTopTen() {
         let arr = Array(uniques) as! [Suffix]
         var arr2 = arr.filter { i in

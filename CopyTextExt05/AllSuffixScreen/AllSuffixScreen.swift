@@ -10,8 +10,8 @@ import SwiftUI
 struct AllSuffixScreen: View {
     @EnvironmentObject var textViewModel: TextViewModel
     
-    var suffixes:[Suffix] {
-        return textViewModel.setOrderSuffix(currentHead: Modes.norm)
+    var suffixes: [Suffix] {
+        textViewModel.suffmodes
     }
     
     var body: some View {

@@ -10,15 +10,26 @@ import SwiftUI
 struct SortScreen: View {
     @EnvironmentObject var textViewModel: TextViewModel
     @Binding var currentHead: Modes
-
-    var suffixes: [Suffix] {
-        return textViewModel.setOrderSuffix(currentHead: currentHead)
-    }
-        
-    var body: some View {
-        table
-    }
+    @State var searchText: String = ""
     
+    var searchResults: [Any] {
+        if searchText.isEmpty {
+            return textViewModel.topOrNorm
+        } else {
+            return textViewModel.topOrNorm.filter {
+                let str = String(($0 as AnyObject).description).lowercased()
+                return str.contains(searchText.lowercased())
+            }
+        }
+    }
+            
+    var body: some View {
+        NavigationView {
+            table
+                .searchable(text: $searchText)
+        }
+    }
+                
     var table: some View {
         VStack {
             Picker("Show: ", selection: $currentHead, content: {
@@ -31,38 +42,15 @@ struct SortScreen: View {
                 }
             })
             .pickerStyle(.segmented)
-            listToShow
+            randoms
         }
         .padding()
-    }
-    
-    private var listToShow: AnyView {
-        switch currentHead {
-        case .norm, .tops:
-            return randoms
-        case .asc, .des:
-            return sortView
-        }
-    }
-
-    private var sortView: AnyView {
-        let orderedArr = Array(NSOrderedSet(array: suffixes))
-        return AnyView(List {
-            ForEach(orderedArr.indices, id: \.self) { i in
-                HStack {
-                    Text(String((orderedArr[i] as AnyObject).description))
-                    let numb = textViewModel.uniques.count(for: orderedArr[i])
-                    Spacer()
-                    Text("\(Int.showNumber(n: numb))")
-                }
-            }
-        })
     }
     
     private var randoms: AnyView {
         return AnyView(
             List {
-                let uniques = textViewModel.topOrNorm
+                let uniques = searchResults
                 ForEach(uniques.indices, id: \.self) { i in
                     HStack {
                         Text(String((uniques[i] as AnyObject).description))
