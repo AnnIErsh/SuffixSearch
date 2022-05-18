@@ -19,8 +19,13 @@ struct ContentView: View {
                 .tabItem {
                     Label("Text", systemImage: "square.and.pencil")
                 }
-            SortScreen(currentHead: $currentHead)
+            AllSuffixScreen()
                 .tag(1)
+                .tabItem {
+                    Label("Sort", systemImage: "table.fill")
+                }
+            SortScreen(currentHead: $currentHead)
+                .tag(2)
                 .tabItem {
                     Label("Sort", systemImage: "table.fill")
                 }

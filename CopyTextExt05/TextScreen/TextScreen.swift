@@ -16,11 +16,15 @@ struct TextScreen: View {
             print("is editing \(edit)")
         } onCommit: {
             textViewModel.words = text.components(separatedBy: " ")
+            textViewModel.removeSpaces = true
             textViewModel.fillArrayWithSequence()
             textViewModel.fillArrayWithSuffixes()
             textViewModel.showTopTen()
         }
         .textFieldStyle(RoundedBorderTextFieldStyle())
+        .onAppear {
+            textViewModel.resetData()
+        }
     }
 }
 

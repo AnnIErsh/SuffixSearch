@@ -11,16 +11,12 @@ struct SortScreen: View {
     @EnvironmentObject var textViewModel: TextViewModel
     @Binding var currentHead: Modes
 
-    var suffixes:[Suffix] {
-        let words = textViewModel.setOrderSuffix(currentHead: currentHead)
-        return words
+    var suffixes: [Suffix] {
+        return textViewModel.setOrderSuffix(currentHead: currentHead)
     }
-            
+        
     var body: some View {
         table
-            .onDisappear {
-                textViewModel.resetData()
-            }
     }
     
     var table: some View {
@@ -42,40 +38,13 @@ struct SortScreen: View {
     
     private var listToShow: AnyView {
         switch currentHead {
-        case .norm:
-            return normalView
-        case .unique:
-            return uniquesView
+        case .norm, .tops:
+            return randoms
         case .asc, .des:
             return sortView
         }
     }
-    
-    private var normalView: AnyView {
-        AnyView(List {
-            ForEach(textViewModel.words.indices, id: \.self) { i in
-                let arr = Array(textViewModel.words[i])
-                let n = textViewModel.indexes[i]
-                Section {
-                    ForEach(arr.indices, id: \.self) { j in
-                        Text(String((suffixes[n + j] as AnyObject).description))
-                    }
-                } header: {
-                    Text(textViewModel.words[i])
-                }
-            }
-        })
-    }
-    
-    private var uniquesView: AnyView {
-        return AnyView(
-            VStack {
-                randoms
-                tops
-            }
-        )
-    }
-    
+
     private var sortView: AnyView {
         let orderedArr = Array(NSOrderedSet(array: suffixes))
         return AnyView(List {
@@ -93,23 +62,7 @@ struct SortScreen: View {
     private var randoms: AnyView {
         return AnyView(
             List {
-                let uniques = Array(textViewModel.uniques)
-                ForEach(uniques.indices, id: \.self) { i in
-                    HStack {
-                        Text(String((uniques[i] as AnyObject).description))
-                        let numb = textViewModel.uniques.count(for: uniques[i])
-                        Spacer()
-                        Text("\(Int.showNumber(n: numb))")
-                    }
-                }
-            }
-        )
-    }
-    
-    private var tops: AnyView {
-        return AnyView(
-            List {
-                let uniques = Array(textViewModel.uniques)
+                let uniques = textViewModel.topOrNorm
                 ForEach(uniques.indices, id: \.self) { i in
                     HStack {
                         Text(String((uniques[i] as AnyObject).description))

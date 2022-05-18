@@ -20,12 +20,30 @@ final class TextViewModel: ObservableObject {
         }
     }
     
+    var removeSpaces: Bool? {
+        didSet {
+            var arr = words.map { str in
+                str.replacingOccurrences(of: "^\\s+|\\s+|\\s+$", with: "", options: .regularExpression)
+            }
+            arr.removeAll { str in
+                str == ""
+            }
+            words = arr
+        }
+    }
+    
     var indexes: [Int] = [0]
     var sequences: [SuffixSequence] = []
     var suffixes: [Suffix] = []
     
     var uniques: NSCountedSet {
         NSCountedSet(array: suffixes)
+    }
+    
+    var topOrNorm: [Any] {
+        if mode == .norm { return Array(uniques) }
+        if mode == .tops { return Array(tops) }
+        return []
     }
 
     func fillArrayWithSequence() {
@@ -62,14 +80,16 @@ final class TextViewModel: ObservableObject {
     
     func showTopTen() {
         let arr = Array(uniques) as! [Suffix]
-        tops = arr.filter { i in
+        var arr2 = arr.filter { i in
             i.name.count == 3
         }
-        tops.sort { i, j in
+        arr2.sort { i, j in
             let numb = uniques.count(for: i)
             let numb2 = uniques.count(for: j)
             return numb > numb2
         }
+        let res = Array(arr2.prefix(10))
+        tops = res
         print(tops)
     }
     
