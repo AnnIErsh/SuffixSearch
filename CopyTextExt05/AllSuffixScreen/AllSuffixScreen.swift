@@ -11,7 +11,7 @@ struct AllSuffixScreen: View {
     @EnvironmentObject var textViewModel: TextViewModel
     
     var suffixes: [Suffix] {
-        textViewModel.suffmodes
+        textViewModel.suffixes
     }
     
     var body: some View {

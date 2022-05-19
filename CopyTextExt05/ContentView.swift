@@ -22,7 +22,7 @@ struct ContentView: View {
             AllSuffixScreen()
                 .tag(1)
                 .tabItem {
-                    Label("Sort", systemImage: "table.fill")
+                    Label("All", systemImage: "line.horizontal.3.decrease")
                 }
             SortScreen(currentHead: $currentHead)
                 .tag(2)

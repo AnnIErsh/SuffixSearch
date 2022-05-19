@@ -10,7 +10,7 @@ import Foundation
 final class TextViewModel: ObservableObject {
     @Published var words: [String] = []
     @Published var head: Modes = .norm
-    @Published var tops: [Suffix] = []
+    @Published var tops: NSCountedSet = []
    
     var mode: Modes {
         get {
@@ -80,20 +80,24 @@ final class TextViewModel: ObservableObject {
             j += 1
         }
     }
-        
-    func showTopTen() {
-        let arr = Array(uniques) as! [Suffix]
-        var arr2 = arr.filter { i in
-            i.name.count == 3
+    
+    func showTopTen(searched: [Suffix], str: String) {
+        var arr = searched.map { i in
+            i.name.suffix(3)
         }
-        arr2.sort { i, j in
-            let numb = uniques.count(for: i)
-            let numb2 = uniques.count(for: j)
+        arr.removeAll(where: { $0.lowercased() != str.lowercased() })
+        tops.addObjects(from: arr)
+        print("after submit:", tops)
+    }
+    
+    func sortByAppearances() -> [Any] {
+        let arr = topOrNorm
+        let sorted = arr.sorted { i, j in
+            let numb =  tops.count(for: i)
+            let numb2 = tops.count(for: j)
             return numb > numb2
         }
-        let res = Array(arr2.prefix(10))
-        tops = res
-        print(tops)
+        return sorted
     }
     
     func resetData() {

@@ -9,9 +9,10 @@ import SwiftUI
 
 struct SortScreen: View {
     @EnvironmentObject var textViewModel: TextViewModel
+    @StateObject var searchedTextModel: SearchViewModel = .init()
     @Binding var currentHead: Modes
     @State var searchText: String = ""
-    
+  
     var searchResults: [Any] {
         if searchText.isEmpty {
             return textViewModel.topOrNorm
@@ -24,9 +25,15 @@ struct SortScreen: View {
     }
             
     var body: some View {
-        NavigationView {
+        VStack {
+            if currentHead == .tops { }
+            else  {
+                searchTops
+            }
             table
-                .searchable(text: $searchText)
+                .onReceive(searchedTextModel.$debounced) { res in
+                    searchText = res
+            }
         }
     }
                 
@@ -42,9 +49,18 @@ struct SortScreen: View {
                 }
             })
             .pickerStyle(.segmented)
-            randoms
+            listToShow
         }
         .padding()
+    }
+    
+    private var listToShow: AnyView {
+        switch currentHead {
+        case .norm, .asc, .des:
+            return randoms
+        case .tops:
+            return topTens
+        }
     }
     
     private var randoms: AnyView {
@@ -61,5 +77,35 @@ struct SortScreen: View {
                 }
             }
         )
+    }
+    
+    private var topTens: AnyView {
+        return AnyView(
+            List {
+                let sorted = textViewModel.sortByAppearances()                
+                ForEach(sorted.indices, id: \.self) { i in
+                    HStack {
+                        Text(String((sorted[i] as AnyObject).description))
+                        Spacer()
+                        let count = textViewModel.tops.count(for: sorted[i])
+                        Text("was appeared \(Int.showNumber(n: count)) times")
+                    }
+                }
+            }
+        )
+    }
+    
+    private var searchTops: some View {
+        HStack {
+            TextField("Enter smth.....", text: $searchedTextModel.searched)
+            Spacer()
+            Button("submit") {
+                guard let str = searchedTextModel.getString else {
+                    return
+                }
+                textViewModel.showTopTen(searched: searchResults as! [Suffix], str: str)
+            }
+            .disabled(searchedTextModel.searched.isEmpty)
+        }
     }
 }

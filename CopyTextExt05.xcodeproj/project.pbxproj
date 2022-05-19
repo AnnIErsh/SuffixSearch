@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E731F87928350F9600B91681 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E731F87828350F9600B91681 /* SearchViewModel.swift */; };
 		E75A91DD282CABFE00593E28 /* Modes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75A91DC282CABFE00593E28 /* Modes.swift */; };
 		E76D29D128348F06008623DE /* AllSuffixScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76D29D028348F06008623DE /* AllSuffixScreen.swift */; };
 		E77769552830A372002DC42D /* SortingProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77769542830A372002DC42D /* SortingProcess.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E731F87828350F9600B91681 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		E75A91DC282CABFE00593E28 /* Modes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modes.swift; sourceTree = "<group>"; };
 		E76D29D028348F06008623DE /* AllSuffixScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllSuffixScreen.swift; sourceTree = "<group>"; };
 		E77769542830A372002DC42D /* SortingProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingProcess.swift; sourceTree = "<group>"; };
@@ -54,6 +56,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E731F87728350F3200B91681 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				E7A00DC12822034B00600BA1 /* TextViewModel.swift */,
+				E731F87828350F9600B91681 /* SearchViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		E76D29D228348F10008623DE /* AllSuffixScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -74,7 +85,6 @@
 			isa = PBXGroup;
 			children = (
 				E7A00DBD2821FD7700600BA1 /* TextScreen.swift */,
-				E7A00DC12822034B00600BA1 /* TextViewModel.swift */,
 			);
 			path = TextScreen;
 			sourceTree = "<group>";
@@ -119,6 +129,7 @@
 		E7A9958D281F6C5B005CFEBE /* CopyTextExt05 */ = {
 			isa = PBXGroup;
 			children = (
+				E731F87728350F3200B91681 /* ViewModels */,
 				E76D29D228348F10008623DE /* AllSuffixScreen */,
 				E7791578282CD3FE00496637 /* Extentions */,
 				E7A03225282765FF00AA188E /* Suffix */,
@@ -218,6 +229,7 @@
 				E7A9958F281F6C5B005CFEBE /* CopyTextExt05App.swift in Sources */,
 				E7A00DC22822034B00600BA1 /* TextViewModel.swift in Sources */,
 				E75A91DD282CABFE00593E28 /* Modes.swift in Sources */,
+				E731F87928350F9600B91681 /* SearchViewModel.swift in Sources */,
 				E7EA6F112831AADD007F9A17 /* Suffix.swift in Sources */,
 				E7A032212827657700AA188E /* SuffixIterator.swift in Sources */,
 				E7A00DC02821FD8A00600BA1 /* SortScreen.swift in Sources */,

@@ -19,7 +19,7 @@ struct TextScreen: View {
             textViewModel.removeSpaces = true
             textViewModel.fillArrayWithSequence()
             textViewModel.fillArrayWithSuffixes()
-            textViewModel.showTopTen()
+            //textViewModel.showTopTen()
         }
         .textFieldStyle(RoundedBorderTextFieldStyle())
         .onAppear {
