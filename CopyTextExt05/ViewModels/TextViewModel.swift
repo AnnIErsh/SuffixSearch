@@ -81,23 +81,21 @@ final class TextViewModel: ObservableObject {
         }
     }
     
-    func showTopTen(searched: [Suffix], str: String) {
-        var arr = searched.map { i in
-            i.name.suffix(3)
-        }
-        arr.removeAll(where: { $0.lowercased() != str.lowercased() })
+    func showTopTen(searched: [Suffix]) {
+        var arr = searched
+        arr.removeAll(where: { $0.name.lowercased().count != 3 })
         tops.addObjects(from: arr)
         print("after submit:", tops)
     }
     
     func sortByAppearances() -> [Any] {
-        let arr = topOrNorm
-        let sorted = arr.sorted { i, j in
+        let sorted = topOrNorm.sorted { i, j in
             let numb =  tops.count(for: i)
             let numb2 = tops.count(for: j)
             return numb > numb2
         }
-        return sorted
+        let arr = Array(sorted.prefix(10))
+        return arr
     }
     
     func resetData() {

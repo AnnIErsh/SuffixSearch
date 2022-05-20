@@ -11,13 +11,7 @@ import Combine
 final class SearchViewModel: ObservableObject {
     @Published var debounced: String = ""
     @Published var searched: String = ""
-    
-    var getString: String? {
-        if (debounced.count < 3) { return nil }
-        let str = String(debounced.suffix(3))
-        return str
-    }
-    
+        
     private var subscriptions = Set<AnyCancellable>()
     
     init() {

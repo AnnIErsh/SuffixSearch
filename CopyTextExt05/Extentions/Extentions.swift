@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 extension Sequence where Element: Hashable {
     func makeUnique() -> [Element] {

@@ -12,7 +12,7 @@ struct SortScreen: View {
     @StateObject var searchedTextModel: SearchViewModel = .init()
     @Binding var currentHead: Modes
     @State var searchText: String = ""
-  
+
     var searchResults: [Any] {
         if searchText.isEmpty {
             return textViewModel.topOrNorm
@@ -88,7 +88,8 @@ struct SortScreen: View {
                         Text(String((sorted[i] as AnyObject).description))
                         Spacer()
                         let count = textViewModel.tops.count(for: sorted[i])
-                        Text("was appeared \(Int.showNumber(n: count)) times")
+                        Text("\(Int.showNumber(n: count))")
+                            .foregroundColor(.blue)
                     }
                 }
             }
@@ -100,10 +101,8 @@ struct SortScreen: View {
             TextField("Enter smth.....", text: $searchedTextModel.searched)
             Spacer()
             Button("submit") {
-                guard let str = searchedTextModel.getString else {
-                    return
-                }
-                textViewModel.showTopTen(searched: searchResults as! [Suffix], str: str)
+                textViewModel.showTopTen(searched: searchResults as! [Suffix])
+                searchedTextModel.searched = ""
             }
             .disabled(searchedTextModel.searched.isEmpty)
         }
