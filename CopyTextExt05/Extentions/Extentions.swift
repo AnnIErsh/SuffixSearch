@@ -6,14 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
-
-extension Sequence where Element: Hashable {
-    func makeUnique() -> [Element] {
-        var set = Set<Element>()
-        return filter { set.insert($0).inserted }
-    }
-}
 
 extension Int {
     static func showNumber(n: Int) -> String {

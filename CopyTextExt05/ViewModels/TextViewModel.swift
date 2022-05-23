@@ -98,6 +98,13 @@ final class TextViewModel: ObservableObject {
         return arr
     }
     
+    func setUp(withText text: String) {
+        words = text.components(separatedBy: " ")
+        removeSpaces = true
+        fillArrayWithSequence()
+        fillArrayWithSuffixes()
+    }
+    
     func resetData() {
         words = []
         sequences = []

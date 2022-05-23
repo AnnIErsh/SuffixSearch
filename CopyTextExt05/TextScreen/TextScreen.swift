@@ -15,16 +15,9 @@ struct TextScreen: View {
         TextField("add your text", text: $text) { edit in
             print("is editing \(edit)")
         } onCommit: {
-            textViewModel.words = text.components(separatedBy: " ")
-            textViewModel.removeSpaces = true
-            textViewModel.fillArrayWithSequence()
-            textViewModel.fillArrayWithSuffixes()
-            //textViewModel.showTopTen()
+            textViewModel.setUp(withText: text)
         }
         .textFieldStyle(RoundedBorderTextFieldStyle())
-        .onAppear {
-            textViewModel.resetData()
-        }
     }
 }
 

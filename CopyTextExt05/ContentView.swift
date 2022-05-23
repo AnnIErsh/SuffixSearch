@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var sel = 0
-    @State var currentHead = Modes.norm
+    @State var sel: Int = 1
+    @State var currentHead: Modes = Modes.norm
     @ObservedObject var textViewModel: TextViewModel = .init()
     
     var body: some View {
@@ -30,6 +30,10 @@ struct ContentView: View {
                     Label("Sort", systemImage: "table.fill")
                 }
         }
+        .onOpenURL(perform: { url in
+            if url == URL(string: "textApp://link/0")! { sel = 0 }
+            if url == URL(string: "textApp://link/2")! { sel = 2 }
+        })
         .environmentObject(TextViewModel())
         .padding()
     }
