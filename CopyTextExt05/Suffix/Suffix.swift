@@ -9,7 +9,7 @@ import Foundation
 
 protocol ISuffix: CustomStringConvertible, Comparable, Hashable { }
 
-struct Suffix: ISuffix {
+struct Suffix: ISuffix, Encodable, Decodable {
     let name: String
     var description: String { return name }
     

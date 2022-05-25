@@ -50,6 +50,11 @@ struct SortScreen: View {
             })
             .pickerStyle(.segmented)
             listToShow
+                .onAppear {
+                    if (textViewModel.tops == []) {
+                        textViewModel.showTopTen(searched: searchResults as! [Suffix])
+                    }
+                }
         }
         .padding()
     }
@@ -87,8 +92,9 @@ struct SortScreen: View {
                     HStack {
                         Text(String((sorted[i] as AnyObject).description))
                         Spacer()
-                        let count = textViewModel.tops.count(for: sorted[i])
-                        Text("\(Int.showNumber(n: count))")
+                        let submited = textViewModel.tops.count(for: sorted[i])
+                        let wasCounted = textViewModel.uniques.count(for: sorted[i])
+                        Text("\(Int.showNumber(n: submited * wasCounted))")
                             .foregroundColor(.blue)
                     }
                 }

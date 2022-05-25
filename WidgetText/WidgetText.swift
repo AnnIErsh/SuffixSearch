@@ -10,22 +10,21 @@ import SwiftUI
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date())
+        return SimpleEntry(date: Date(), data: Settings.suff)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date())
+        let entry = SimpleEntry(date: Date(), data: Settings.suff)
         completion(entry)
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         var entries: [SimpleEntry] = []
 
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate)
+        for sec in 0 ..< 3 {
+            let entryDate = Calendar.current.date(byAdding: .second, value: sec, to: currentDate)!
+            let entry = SimpleEntry(date: entryDate, data: Settings.suff)
             entries.append(entry)
         }
 
@@ -36,6 +35,7 @@ struct Provider: TimelineProvider {
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
+    var data: [Suffix]
 }
 
 struct WidgetTextEntryView : View {
@@ -44,6 +44,7 @@ struct WidgetTextEntryView : View {
     var body: some View {
         VStack {
             Text(entry.date, style: .time)
+            Text(String((entry.data[0] as AnyObject).description))
             HStack {
                 Link(destination: URL(string: "textApp://link/0")!) {
                     Text("text")
@@ -53,6 +54,7 @@ struct WidgetTextEntryView : View {
                     Text("sort")
                 }
             }
+            .padding()
         }
     }
 }
@@ -60,7 +62,7 @@ struct WidgetTextEntryView : View {
 @main
 struct WidgetText: Widget {
     let kind: String = "WidgetText"
-
+    
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             WidgetTextEntryView(entry: entry)
@@ -70,10 +72,3 @@ struct WidgetText: Widget {
         .supportedFamilies([.systemLarge])
     }
 }
-//
-//struct WidgetText_Previews: PreviewProvider {
-//    static var previews: some View {
-//        WidgetTextEntryView(entry: SimpleEntry(date: Date()))
-//            .previewContext(WidgetPreviewContext(family: .systemSmall))
-//    }
-//}

@@ -92,13 +92,16 @@ final class TextViewModel: ObservableObject {
         let sorted = topOrNorm.sorted { i, j in
             let numb =  tops.count(for: i)
             let numb2 = tops.count(for: j)
-            return numb > numb2
+            let wasCounted = uniques.count(for: i)
+            let wasCounted2 = uniques.count(for: j)
+            return (numb * wasCounted) > (numb2 * wasCounted2)
         }
         let arr = Array(sorted.prefix(10))
         return arr
     }
-    
+        
     func setUp(withText text: String) {
+        resetData()
         words = text.components(separatedBy: " ")
         removeSpaces = true
         fillArrayWithSequence()

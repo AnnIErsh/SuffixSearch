@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 struct TextScreen: View {
     @EnvironmentObject var textViewModel: TextViewModel
@@ -16,6 +17,10 @@ struct TextScreen: View {
             print("is editing \(edit)")
         } onCommit: {
             textViewModel.setUp(withText: text)
+            print("before append: ", Settings.suff)
+            Settings.suff = textViewModel.suffixes
+            print("after append: ", Settings.suff)
+            WidgetCenter.shared.reloadAllTimelines()
         }
         .textFieldStyle(RoundedBorderTextFieldStyle())
     }
