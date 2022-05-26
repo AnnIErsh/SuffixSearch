@@ -21,9 +21,26 @@ struct TextScreen: View {
             Settings.suff = textViewModel.suffixes
             print("after append: ", Settings.suff)
             WidgetCenter.shared.reloadAllTimelines()
-            text = ""
         }
+        .modifier(ClearButton(text: $text))
         .textFieldStyle(RoundedBorderTextFieldStyle())
+    }
+}
+
+struct ClearButton: ViewModifier {
+    @Binding var text: String
+    
+    public func body(content: Content) -> some View {
+        ZStack(alignment: .trailing) {
+            content
+            if !text.isEmpty {
+                Button(action: { self.text = "" }) {
+                    Image(systemName: "delete.left")
+                        .foregroundColor(Color(UIColor.opaqueSeparator))
+                }
+                .padding(.trailing, 8)
+            }
+        }
     }
 }
 
