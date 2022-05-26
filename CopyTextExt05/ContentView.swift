@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var sel: Int = 1
+    @State var sel: Int = 0
     @State var currentHead: Modes = Modes.norm
     @ObservedObject var textViewModel: TextViewModel = .init()
     

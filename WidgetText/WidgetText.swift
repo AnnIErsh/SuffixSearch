@@ -36,6 +36,17 @@ struct Provider: TimelineProvider {
 struct SimpleEntry: TimelineEntry {
     let date: Date
     var data: [Suffix]
+    
+    var setSuffix: NSCountedSet {
+        NSCountedSet(array: data)
+    }
+    
+    var arrSuffix: Array<Any> {
+        var arr = Array(setSuffix)
+        arr.removeAll { ($0 as! Suffix).name.count < 3 }
+        arr.sort { setSuffix.count(for: $0) > setSuffix.count(for: $1) }
+        return Array(arr.prefix(4))
+    }
 }
 
 struct WidgetTextEntryView : View {
@@ -44,17 +55,30 @@ struct WidgetTextEntryView : View {
     var body: some View {
         VStack {
             Text(entry.date, style: .time)
-            Text(String((entry.data[0] as AnyObject).description))
+            VStack {
+                ForEach(entry.arrSuffix.indices, id: \.self) { i in
+                    HStack {
+                        Text(String((entry.arrSuffix[i] as AnyObject).description))
+                            .padding(16)
+                        Spacer()
+                        Text("\(entry.setSuffix.count(for: entry.arrSuffix[i]))")
+                            .padding(16)
+                    }
+                }
+            }
             HStack {
                 Link(destination: URL(string: "textApp://link/0")!) {
                     Text("text")
+                        .foregroundColor(.blue)
+                        .padding(16)
                 }
                 Spacer()
                 Link(destination: URL(string: "textApp://link/2")!) {
                     Text("sort")
+                        .foregroundColor(.blue)
+                        .padding(16)
                 }
             }
-            .padding()
         }
     }
 }

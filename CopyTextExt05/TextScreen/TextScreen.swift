@@ -21,6 +21,7 @@ struct TextScreen: View {
             Settings.suff = textViewModel.suffixes
             print("after append: ", Settings.suff)
             WidgetCenter.shared.reloadAllTimelines()
+            text = ""
         }
         .textFieldStyle(RoundedBorderTextFieldStyle())
     }
