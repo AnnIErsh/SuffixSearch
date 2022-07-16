@@ -143,6 +143,20 @@ struct SortScreen: View {
                         self.testArr.append(str)
                     }
                 }
+                searching(array: textViewModel.topOrNorm)
+                searching(array: textViewModel.addOtherDataStructure())
+                searching(array: textViewModel.addBigArray())
+            }
+        }
+    }
+    
+    func searching(array: [Any]) {
+        for i in array {
+            let str = String((i as AnyObject).description).lowercased()
+            if str.contains(searchText.lowercased()) {
+                //sleep(1)
+                print(str)
+                self.testArr.append(str)
             }
         }
     }

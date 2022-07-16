@@ -116,4 +116,16 @@ final class TextViewModel: ObservableObject {
         suffixes = []
         tops = []
     }
+    
+    func addOtherDataStructure() -> [String] {
+        return ["years,", "arch", "that", "has", "normal", "ayout.", "mal", "fault", "dable", "page", "ackages", "racted", "able", "have", "ormal", "eadable", "tablished", "as", "stablished", "readable", "age", "adable", "eader", "a", "ault", "accident,", "aking", "search", "infancy.", "acted", "tracted", "ars,", "stracted", "arious", "distracted", "earch", "ears,", "act", "reader", "rmal", "many", "various", "at", "fancy.", "packages", "established", "ave", "and", "kages", "ancy.", "nfancy.", "ckages", "default", "ader", "any", "ablished", "making", "hat", "istracted", "layout.", "many", "fact", "ages", "al", "efault"]
+    }
+    
+    func addBigArray() -> [String] {
+        var arr: [String] = []
+        for i in 1...1000 {
+            arr.append("\(i)")
+        }
+        return arr
+    }
 }
