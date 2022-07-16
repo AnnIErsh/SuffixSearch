@@ -25,10 +25,13 @@ extension UserDefaults {
 
 extension Color {
     static func timeColor(value: Double, sortedItems: [Double]) -> Color {
-        let step: Double = Double((100 / sortedItems.count) + (100 % sortedItems.count))
+        var step: Double = Double((100 / sortedItems.count) + (100 % sortedItems.count))
         let i: Double = {
             var j = Int(sortedItems.firstIndex(of: value) ?? 0)
-            if j == sortedItems.count - 1 {
+            if j == 0 && sortedItems.count == 1 {
+                step = 100
+            }
+            else if j == sortedItems.count - 1 {
                 j = 100
             }
             return Double(j)
