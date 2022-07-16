@@ -110,6 +110,8 @@ final class TextViewModel: ObservableObject {
     
     func resetData() {
         words = []
+        indexes = [0]
+        tops = []
         sequences = []
         suffixes = []
         tops = []

@@ -10,17 +10,17 @@ import SwiftUI
 struct SortScreen: View {
     @EnvironmentObject var textViewModel: TextViewModel
     @StateObject var searchedTextModel: SearchViewModel = .init()
+    @EnvironmentObject var historyViewModel: HistoryViewModel
     @Binding var currentHead: Modes
     @State var searchText: String = ""
-
+    @State var testArr: [Any] = []
+   
     var searchResults: [Any] {
         if searchText.isEmpty {
             return textViewModel.topOrNorm
         } else {
-            return textViewModel.topOrNorm.filter {
-                let str = String(($0 as AnyObject).description).lowercased()
-                return str.contains(searchText.lowercased())
-            }
+            print(testArr)
+            return testArr
         }
     }
             
@@ -33,6 +33,12 @@ struct SortScreen: View {
             table
                 .onReceive(searchedTextModel.$debounced) { res in
                     searchText = res
+                    if searchText == "" {
+                        testArr = []
+                    }
+                    else {
+                        testTime()
+                    }
             }
         }
     }
@@ -54,6 +60,12 @@ struct SortScreen: View {
                     if (textViewModel.tops == []) {
                         textViewModel.showTopTen(searched: searchResults as! [Suffix])
                     }
+                    self.historyViewModel.createSearchJob()
+                }
+                .onDisappear {
+                    self.historyViewModel.stop()
+                    self.searchText = ""
+                    self.searchedTextModel.searched = ""
                 }
         }
         .padding()
@@ -106,11 +118,32 @@ struct SortScreen: View {
         HStack {
             TextField("Enter smth.....", text: $searchedTextModel.searched)
             Spacer()
-            Button("submit") {
-                textViewModel.showTopTen(searched: searchResults as! [Suffix])
+            Button("save") {
+                if let time = historyViewModel.testTime {
+                    let text = searchedTextModel.searched
+                    let res = (text, time)
+                    historyViewModel.items.append(res)
+                }
+                //textViewModel.showTopTen(searched: searchResults as! [Suffix])
                 searchedTextModel.searched = ""
+                testArr = []
             }
             .disabled(searchedTextModel.searched.isEmpty)
+        }
+    }
+    
+    func testTime() {
+        if !searchText.isEmpty {
+            historyViewModel.run {
+                for i in textViewModel.topOrNorm {
+                    let str = String((i as AnyObject).description).lowercased()
+                    if str.contains(searchText.lowercased()) {
+                        //sleep(1)
+                        print(str)
+                        self.testArr.append(str)
+                    }
+                }
+            }
         }
     }
 }

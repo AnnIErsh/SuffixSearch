@@ -13,17 +13,28 @@ struct TextScreen: View {
     @State private var text: String = ""
     
     var body: some View {
-        TextField("add your text", text: $text) { edit in
-            print("is editing \(edit)")
-        } onCommit: {
-            textViewModel.setUp(withText: text)
-            print("before append: ", Settings.suff)
-            Settings.suff = textViewModel.suffixes
-            print("after append: ", Settings.suff)
-            WidgetCenter.shared.reloadAllTimelines()
+        VStack {
+            TextField("add your text", text: $text) { edit in
+                print("is editing \(edit)")
+            } onCommit: {
+                textViewModel.setUp(withText: text)
+                print("before append: ", Settings.suff)
+                Settings.suff = textViewModel.suffixes
+                print("after append: ", Settings.suff)
+                WidgetCenter.shared.reloadAllTimelines()
+            }
+            .modifier(ClearButton(text: $text))
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .padding()
+            Button("Put First Text") {
+                text = String.showFirstText()
+            }
+            .padding()
+            Button("Put Second Text") {
+                text = String.showSecondText()
+            }
+            .padding()
         }
-        .modifier(ClearButton(text: $text))
-        .textFieldStyle(RoundedBorderTextFieldStyle())
     }
 }
 

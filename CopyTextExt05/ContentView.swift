@@ -11,6 +11,7 @@ struct ContentView: View {
     @State var sel: Int = 0
     @State var currentHead: Modes = Modes.norm
     @ObservedObject var textViewModel: TextViewModel = .init()
+    @ObservedObject var historyViewModel: HistoryViewModel = .init()
     
     var body: some View {
         TabView(selection: $sel) {
@@ -34,7 +35,8 @@ struct ContentView: View {
             if url == URL(string: "textApp://link/0")! { sel = 0 }
             if url == URL(string: "textApp://link/2")! { sel = 2 }
         })
-        .environmentObject(TextViewModel())
+        .environmentObject(textViewModel)
+        .environmentObject(historyViewModel)
         .padding()
     }
 }

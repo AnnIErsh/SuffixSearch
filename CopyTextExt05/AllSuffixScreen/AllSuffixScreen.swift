@@ -9,13 +9,17 @@ import SwiftUI
 
 struct AllSuffixScreen: View {
     @EnvironmentObject var textViewModel: TextViewModel
+    @State private var show = false
     
     var suffixes: [Suffix] {
         textViewModel.suffixes
     }
     
     var body: some View {
-        normalView
+        VStack {
+            history
+            normalView
+        }
     }
     
     private var normalView: AnyView {
@@ -32,5 +36,14 @@ struct AllSuffixScreen: View {
                 }
             }
         })
+    }
+    
+    private var history: some View {
+        Button("Show History") {
+            show.toggle()
+        }
+        .sheet(isPresented: $show) {
+            FeedScreen()
+        }
     }
 }

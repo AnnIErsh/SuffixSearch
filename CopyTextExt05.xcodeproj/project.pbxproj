@@ -31,6 +31,9 @@
 		E7B6F796283B8DAC00BA7B6F /* WidgetText.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B6F795283B8DAC00BA7B6F /* WidgetText.swift */; };
 		E7B6F798283B8DAF00BA7B6F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7B6F797283B8DAF00BA7B6F /* Assets.xcassets */; };
 		E7B6F79C283B8DAF00BA7B6F /* WidgetTextExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E7B6F790283B8DAC00BA7B6F /* WidgetTextExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E7C980BE28772B5400389A67 /* Job in Frameworks */ = {isa = PBXBuildFile; productRef = E7C980BD28772B5400389A67 /* Job */; };
+		E7C980C62879F86F00389A67 /* FeedScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C980C52879F86F00389A67 /* FeedScreen.swift */; };
+		E7C980CA287A23E300389A67 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C980C9287A23E300389A67 /* HistoryViewModel.swift */; };
 		E7EA6F112831AADD007F9A17 /* Suffix.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EA6F102831AADD007F9A17 /* Suffix.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +86,9 @@
 		E7B6F795283B8DAC00BA7B6F /* WidgetText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetText.swift; sourceTree = "<group>"; };
 		E7B6F797283B8DAF00BA7B6F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E7B6F799283B8DAF00BA7B6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E7C980BC28772AF900389A67 /* Job */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Job; sourceTree = "<group>"; };
+		E7C980C52879F86F00389A67 /* FeedScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedScreen.swift; sourceTree = "<group>"; };
+		E7C980C9287A23E300389A67 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		E7CE791928377B050020DD49 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		E7EA6F102831AADD007F9A17 /* Suffix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Suffix.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7C980BE28772B5400389A67 /* Job in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +119,7 @@
 			children = (
 				E7A00DC12822034B00600BA1 /* TextViewModel.swift */,
 				E731F87828350F9600B91681 /* SearchViewModel.swift */,
+				E7C980C9287A23E300389A67 /* HistoryViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -120,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				E76D29D028348F06008623DE /* AllSuffixScreen.swift */,
+				E7C980C52879F86F00389A67 /* FeedScreen.swift */,
 			);
 			path = AllSuffixScreen;
 			sourceTree = "<group>";
@@ -164,6 +173,7 @@
 		E7A99582281F6C5B005CFEBE = {
 			isa = PBXGroup;
 			children = (
+				E7C980BB28772AF900389A67 /* Packages */,
 				E78D08F2283E45AA00330169 /* WidgetTextExtension.entitlements */,
 				E7A9958D281F6C5B005CFEBE /* CopyTextExt05 */,
 				E7B6F794283B8DAC00BA7B6F /* WidgetText */,
@@ -218,6 +228,14 @@
 			path = WidgetText;
 			sourceTree = "<group>";
 		};
+		E7C980BB28772AF900389A67 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				E7C980BC28772AF900389A67 /* Job */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 		E7CE791628377B050020DD49 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,6 +263,9 @@
 				E7B6F79B283B8DAF00BA7B6F /* PBXTargetDependency */,
 			);
 			name = CopyTextExt05;
+			packageProductDependencies = (
+				E7C980BD28772B5400389A67 /* Job */,
+			);
 			productName = CopyTextExt05;
 			productReference = E7A9958B281F6C5B005CFEBE /* CopyTextExt05.app */;
 			productType = "com.apple.product-type.application";
@@ -332,6 +353,7 @@
 				E7A0321F2827653C00AA188E /* SuffixSequence.swift in Sources */,
 				E779157A282CD41700496637 /* Extentions.swift in Sources */,
 				E7A0321D2827650300AA188E /* SuffixModel.swift in Sources */,
+				E7C980CA287A23E300389A67 /* HistoryViewModel.swift in Sources */,
 				E77E8369283CE9C4008E443D /* TextScreen.swift in Sources */,
 				E7A9958F281F6C5B005CFEBE /* CopyTextExt05App.swift in Sources */,
 				E7A00DC22822034B00600BA1 /* TextViewModel.swift in Sources */,
@@ -343,6 +365,7 @@
 				E77E8365283CE6E7008E443D /* WidgetSetUp.swift in Sources */,
 				E77769552830A372002DC42D /* SortingProcess.swift in Sources */,
 				E76D29D128348F06008623DE /* AllSuffixScreen.swift in Sources */,
+				E7C980C62879F86F00389A67 /* FeedScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -633,6 +656,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E7C980BD28772B5400389A67 /* Job */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Job;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E7A99583281F6C5B005CFEBE /* Project object */;
 }

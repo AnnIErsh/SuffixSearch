@@ -11,12 +11,11 @@ import Combine
 final class SearchViewModel: ObservableObject {
     @Published var debounced: String = ""
     @Published var searched: String = ""
-        
     private var subscriptions = Set<AnyCancellable>()
     
     init() {
         $searched
-            .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
+            .debounce(for: .milliseconds(1000), scheduler: DispatchQueue.main)
             .removeDuplicates()
             .sink(receiveValue: { [weak self] res in
                 self?.debounced = res
